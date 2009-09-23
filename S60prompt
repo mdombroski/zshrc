@@ -1,0 +1,32 @@
+#!/bin/zsh
+
+# Colours
+prompt_green=${1:-'green'}
+prompt_red=${2:-'red'}
+prompt_blue=${3:-'blue'}
+prompt_magenta=${4:-'magenta'}
+prompt_white=${5:-'white'}
+
+
+autoload -U promptinit
+promptinit
+setopt prompt_subst
+
+function lprompt {
+	PROMPT="%(!.%{$fg_bold[$prompt_red]%}.%{$fg_bold[$prompt_green]%})%n@%m %{$fg_bold[$prompt_blue]%}%~ %{$fg_bold[$prompt_magenta]%}$ %{$reset_color%}"
+}
+
+function rprompt {
+	local git_b git_s
+	git_b='$(get_git_prompt_info '%b')'
+	git_s='$(get_git_prompt_info '%s')'
+
+	RPROMPT="%{$fg_bold[$prompt_red]%}$git_b%{$fg_bold[$prompt_magenta]%}$git_s%{$reset_color%}"
+}
+
+rprompt
+lprompt
+
+# keep cursor at end of line
+bindkey -e .safe
+

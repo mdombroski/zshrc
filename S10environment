@@ -1,0 +1,32 @@
+#!/bin/zsh
+
+export FULLNAME="Matthew J Dombroski"
+export EMAIL="matt@mattski.net.nz"
+export EDITOR=vim
+
+if [ "${TERM}" != "linux" ]; then
+	export TERM=xterm-256color
+fi
+
+#export PAGER="vim -u /usr/share/vim/vim72/macros/less.vim -R -"
+export PAGER=less
+
+# this makes man pages look nicer in less
+export LESS_TERMCAP_mb=$'\E[01;31;5;31m'	# begin blinking
+export LESS_TERMCAP_md=$'\E[01;31m'			# begin bold
+export LESS_TERMCAP_me=$'\E[0m'				# end mode
+export LESS_TERMCAP_se=$'\E[0m'				# end standout mode
+export LESS_TERMCAP_so=$'\E[1;35m'			# begin standout mode
+export LESS_TERMCAP_ue=$'\E[0m'				# end underline
+export LESS_TERMCAP_us=$'\E[01;32m'			# begin underline
+
+# required to enable less colour output
+export GROFF_NO_SGR=yes
+
+export LESSOPEN="|/usr/local/bin/lesspipe.sh %s"
+export LESS="-r"
+
+
+export PATH="${PATH}:${HOME}/bin:${HOME}/usr/bin:${HOME}/usr/sbin:/opt/crossworks-arm-1.7/bin/"
+export BBPATH=/home/matthew/openembedded/:/home/matthew/openembedded/local/
+

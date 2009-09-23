@@ -1,0 +1,11 @@
+#!/bin/zsh
+
+bindkey -v "^[[3~" delete-char
+
+
+# allow for editing of the command line
+# http://zshwiki.org/home/examples/zlewidgets
+autoload -U    edit-command-line
+zle -N         edit-command-line
+bindkey -a 'v' edit-command-line
+
