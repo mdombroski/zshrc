@@ -1,7 +1,12 @@
 #!/bin/zsh
 
-bindkey -v "^[[3~" delete-char
+# Keep cursor at end of line
+bindkey -e .safe
 
+# home, end, delete
+bindkey -e "[1~" beginning-of-line
+bindkey -e "[4~" end-of-line
+bindkey -e "[3~" delete-char
 
 # allow for editing of the command line
 # http://zshwiki.org/home/examples/zlewidgets

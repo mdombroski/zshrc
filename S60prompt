@@ -27,6 +27,3 @@ function rprompt {
 rprompt
 lprompt
 
-# keep cursor at end of line
-bindkey -e .safe
-
