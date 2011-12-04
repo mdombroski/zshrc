@@ -1,0 +1,4 @@
+#!/bin/zsh
+
+[[ -f ~/.alias ]] && source ~/.alias
+

@@ -1,11 +1,16 @@
 #!/bin/zsh
 
-# Colours
-prompt_green=${1:-'green'}
-prompt_red=${2:-'red'}
-prompt_blue=${3:-'blue'}
-prompt_magenta=${4:-'magenta'}
-prompt_white=${5:-'white'}
+autoload colors zsh/terminfo
+if [[ "$terminfo[colors]" -ge 8 ]]; then
+	colors
+fi
+
+for color in RED GREEN YELLOW BLUE MAGENTA CYAN WHITE; do
+	eval PR_$color='%{$terminfo[bold]$fg[${(L)color}]%}'
+	eval PR_LIGHT_$color='%{$fg[${(L)color}]%}'
+	(( count = $count + 1 ))
+done
+PR_NO_COLOUR="%{$terminfo[sgr0]%}"
 
 
 autoload -U promptinit
@@ -13,7 +18,7 @@ promptinit
 setopt prompt_subst
 
 function lprompt {
-	PROMPT="%(!.%{$fg_bold[$prompt_red]%}.%{$fg_bold[$prompt_green]%})%n@%m %{$fg_bold[$prompt_blue]%}%~ %{$fg_bold[$prompt_magenta]%}$ %{$reset_color%}"
+	PROMPT="%(!.$PR_RED.$PR_GREEN)%n@%m $PR_BLUE%~ $PR_MAGENTA$ $PR_NO_COLOUR"
 }
 
 function rprompt {
@@ -21,7 +26,7 @@ function rprompt {
 	git_b='$(get_git_prompt_info '%b')'
 	git_s='$(get_git_prompt_info '%s')'
 
-	RPROMPT="%{$fg_bold[$prompt_red]%}$git_b%{$fg_bold[$prompt_magenta]%}$git_s%{$reset_color%}"
+	RPROMPT="$PR_RED$git_b$PR_MAGENTA$git_s$PR_NO_COLOUR"
 }
 
 rprompt
